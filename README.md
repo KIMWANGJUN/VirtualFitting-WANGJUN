@@ -253,14 +253,25 @@ VirtualFitting-WANGJUN/
 
 ## 🔧 **환경 변수 설정 (WANGJUN Version)**
 
-### **Frontend (.env)**
+### **전역 (.env) - 루트 디렉토리**
 ```bash
-REACT_APP_API_URL=http://localhost:8000
-REACT_APP_KAKAO_JAVASCRIPT_KEY=your-kakao-javascript-key
-REACT_APP_KAKAO_REDIRECT_URI=http://localhost:3000/auth/kakao/callback
+# 이메일 설정
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USERNAME=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+EMAIL_FROM=your_email@gmail.com
+EMAIL_USE_TLS=true
+EMAIL_USE_SSL=false
 ```
 
-### **Backend (.env)**
+### **Frontend (.env) - frontend 디렉토리**
+```bash
+REACT_APP_API_URL=http://localhost:8000
+GENERATE_SOURCEMAP=false
+```
+
+### **Backend (.env) - backend 디렉토리**
 ```bash
 # 데이터베이스 설정
 DB_USER=root
@@ -279,7 +290,7 @@ KAKAO_REDIRECT_URI=http://localhost:3000/oauth/kakao/callback
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USERNAME=your_email@gmail.com
-EMAIL_PASSWORD=your_password
+EMAIL_PASSWORD=your_app_password
 
 # 앱 설정
 BASE_URL=http://localhost:8000
