@@ -317,6 +317,17 @@ DEV_MODE=false
 - **크롤링 데이터**: 초기 데이터는 자동으로 로드됨
 - **백업**: 정기적인 데이터베이스 백업 권장
 
+### **4️⃣ 환경 변수 파일**
+- **전역 .env**: 루트 디렉토리에 이메일 설정
+- **Frontend .env**: frontend 디렉토리에 API URL 설정
+- **Backend .env**: backend 디렉토리에 데이터베이스, API 설정
+- **보안**: 실제 값은 GitHub에 업로드하지 않음 (.gitignore에 포함)
+
+### **5️⃣ 프로젝트 용량**
+- **전체 프로젝트**: 약 23GB (AI 모델 포함)
+- **GitHub 업로드**: 약 500MB (소스 코드만)
+- **제외 파일들**: node_modules, venv, AI 모델, 업로드 이미지
+
 ---
 
 ## 🐛 **문제 해결 (WANGJUN Version)**
@@ -347,6 +358,28 @@ docker-compose build --no-cache
 docker-compose up -d
 ```
 
+### **환경 변수 파일 문제**
+```bash
+# 1. 모든 .env 파일이 올바른 위치에 있는지 확인
+# - 루트 디렉토리: .env (이메일 설정)
+# - frontend 디렉토리: .env (API URL)
+# - backend 디렉토리: .env (데이터베이스, API)
+
+# 2. 파일 권한 확인 (Linux/Mac)
+chmod 600 .env
+chmod 600 frontend/.env
+chmod 600 backend/.env
+```
+
+### **크롤링 데이터 로드 문제**
+```bash
+# 1. 데이터베이스 연결 확인
+docker-compose logs mysql_db
+
+# 2. 크롤링 데이터 수동 삽입
+docker-compose exec backend python crawling/insert_csv.py
+```
+
 ---
 
 ## 📞 **지원 및 문의**
@@ -354,5 +387,22 @@ docker-compose up -d
 **개발자**: 김왕준 (KIMWANGJUN)  
 **GitHub**: https://github.com/KIMWANGJUN  
 **프로젝트**: https://github.com/KIMWANGJUN/VirtualFitting-WANGJUN
+
+## 📋 **업데이트 로그 (WANGJUN Version)**
+
+### **v1.0.0 (2024-12-19)**
+- ✅ 가상 피팅 결과 관리 기능 추가
+- ✅ 마이페이지 가상 피팅 탭 구현
+- ✅ 크롤링 데이터 통합
+- ✅ 홈/의류 페이지 연동
+- ✅ CORS 오류 해결
+- ✅ OOTDiffusion 모델 최적화
+- ✅ Docker 환경 개선
+- ✅ UI/UX 개선
+
+### **v1.1.0 (2024-12-19)**
+- ✅ 환경 변수 설정 문서화 완료
+- ✅ 문제 해결 가이드 추가
+- ✅ 프로젝트 용량 정보 추가
 
 > 📌 **WANGJUN Version**은 기존 Fashiony Guys 팀의 프로젝트를 기반으로 개선된 버전입니다.
