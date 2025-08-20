@@ -1,0 +1,24 @@
+# AI 모델 파일들 (용량이 큼 - 볼륨으로 마운트)
+app/api/ml_models/OOTDiffusion/checkpoints/
+app/api/ml_models/OOTDiffusion/checkpoints/ootd/
+app/api/ml_models/OOTDiffusion/checkpoints/humanparsing/
+app/api/ml_models/OOTDiffusion/checkpoints/openpose/
+app/api/ml_models/OOTDiffusion/checkpoints/clip-vit-large-patch14/
+
+# 임시 파일들
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# 로그 파일들
+*.log
+
+# 업로드된 파일들 (볼륨으로 마운트)
+uploads/

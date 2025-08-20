@@ -1,0 +1,463 @@
+/* Header.module.css */
+:root {
+  --header-height: 70px;
+}
+
+.header {
+  background-color: var(--bg-primary);
+  box-shadow: var(--header-shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  transition: all 0.3s ease;
+  height: var(--header-height);
+}
+
+/* 스크롤 시 헤더 스타일 */
+.header.scrolled {
+  background-color: var(--bg-primary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0.95;
+}
+
+/* 헤더가 있는 페이지에서만 상단 여백 추가 */
+body.has-header {
+  padding-top: var(--header-height);
+}
+
+/* 모바일에서는 헤더 높이 조정 */
+@media (max-width: 768px) {
+  :root {
+    --header-height: auto;
+  }
+
+  body.has-header {
+    padding-top: 0;
+  }
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* 왼쪽 영역 (로고 + 검색창) */
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  flex: 1;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+}
+
+.logo a {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+  font-family: "Courier New", Courier, monospace;
+  white-space: nowrap;
+}
+
+.logo a:hover {
+  color: var(--accent-color);
+}
+
+/* 검색창 스타일 */
+.searchBar {
+  max-width: 300px;
+  width: 100%;
+}
+
+.searchBar form {
+  display: flex;
+  position: relative;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  font-size: 0.9rem;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.searchBar input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+.searchBar button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.searchBar button:hover {
+  color: var(--accent-color);
+}
+
+/* 오른쪽 영역 (네비게이션 + 로그인/프로필) */
+.headerRight {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.navigation {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navigation ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+  align-items: center;
+  height: 100%;
+}
+
+.navigation a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+  font-size: 0.95rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.navigation a:hover {
+  color: var(--accent-color);
+  background-color: var(--bg-secondary);
+}
+
+.themeToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.themeToggle:hover {
+  background-color: var(--bg-secondary);
+  color: var(--accent-color);
+}
+
+/* 로그인/회원가입 버튼 스타일 */
+.authButtons {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  height: 36px;
+}
+
+.loginButton,
+.headerLoginButton {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0 1.2rem;
+  border-radius: 18px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+  white-space: nowrap;
+}
+
+.loginButton:hover,
+.headerLoginButton:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.registerButton {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0 1.2rem;
+  border-radius: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.registerButton:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* 사용자 프로필 스타일 */
+.userProfileContainer {
+  margin-left: 0.5rem;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 24px;
+  transition: background-color 0.3s ease;
+  height: 100%;
+}
+
+.userProfile:hover {
+  background-color: var(--bg-secondary);
+}
+
+.profileImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: bold;
+}
+
+.profileImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileInitial {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.userName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  height: 32px;
+}
+
+.logoutButton:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+}
+
+.logoutButton span {
+  display: none;
+}
+
+/* 햄버거 버튼 스타일 */
+.hamburgerButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.hamburgerLine {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.hamburgerButton.active .hamburgerLine:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburgerButton.active .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerButton.active .hamburgerLine:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1024px) {
+  .hamburgerButton {
+    display: flex;
+  }
+
+  .navItem {
+    display: none;
+  }
+
+  .headerContainer {
+    padding: 0 1rem;
+  }
+
+  .searchBar {
+    max-width: 200px;
+  }
+
+  .logoutButton span {
+    display: inline;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+  }
+
+  .headerContainer {
+    flex-wrap: wrap;
+    padding: 0.8rem 1rem;
+    height: auto;
+  }
+
+  .headerLeft {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+  }
+
+  .logoContainer {
+    width: auto;
+    justify-content: flex-start;
+    height: auto;
+  }
+
+  .searchBar {
+    order: 3;
+    margin: 0.8rem 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .headerRight {
+    width: 100%;
+    justify-content: flex-end;
+    height: auto;
+  }
+
+  .navigation {
+    order: 2;
+    height: auto;
+  }
+
+  .navigation ul {
+    justify-content: flex-end;
+    height: auto;
+  }
+
+  .userProfile {
+    padding: 0.2rem;
+  }
+
+  .userName {
+    display: none;
+  }
+
+  .authButtons {
+    gap: 0.5rem;
+  }
+
+  .loginButton,
+  .headerLoginButton,
+  .registerButton {
+    padding: 0 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .authButtons {
+    flex-direction: row;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  .themeToggle {
+    padding: 0.3rem;
+  }
+
+  .navigation ul {
+    gap: 0.8rem;
+  }
+}

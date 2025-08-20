@@ -1,0 +1,920 @@
+.clothingBrowsePage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s;
+  padding-top: 70px; /* 헤더 높이만큼 */
+}
+
+.browseMain {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 페이지 헤더 */
+.pageHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.pageHeader h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+
+.pageHeader p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+/* 레이아웃 */
+.browseLayout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* 필터 사이드바 */
+.filterSidebar {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  height: fit-content;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.filterHeader h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.resetButton {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.resetButton:hover {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.filterSection {
+  margin-bottom: 2rem;
+}
+
+.filterSection:last-child {
+  margin-bottom: 0;
+}
+
+.filterSection h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+
+/* 검색 폼 */
+.searchForm {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.searchInput::placeholder {
+  color: var(--text-secondary);
+}
+
+.searchButton {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* 정렬 옵션 - 커스텀 라디오 버튼 */
+.sortOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sortOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.sortOption:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+}
+
+.sortOption input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+.sortOption::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sortOption:hover::before {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.sortOption:has(input[type="radio"]:checked)::before {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* 필터 옵션 - 커스텀 라디오 버튼 */
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.filterOption:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+}
+
+.filterOption input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+.filterOption::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.filterOption:hover::before {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.filterOption:has(input[type="radio"]:checked)::before {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* 선택된 옵션 스타일 강화 */
+.sortOption:has(input[type="radio"]:checked),
+.filterOption:has(input[type="radio"]:checked) {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.filterSelect {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* 메인 콘텐츠 */
+.browseContent {
+  min-height: 600px;
+}
+
+.resultsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.resultsInfo {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+/* 상품 그리드 */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.productCard {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.productCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-color);
+}
+
+.productImage {
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.productImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover .productImg {
+  transform: scale(1.05);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.productOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.productCard:hover .productOverlay {
+  opacity: 1;
+}
+
+.tryOnButton,
+.likeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.tryOnButton {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  flex: 1;
+  text-align: center;
+  border: 1px solid var(--accent-color);
+}
+
+.tryOnButton:hover {
+  background-color: var(--accent-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.likeButton {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #6b7280; /* 회색으로 변경 */
+  padding: 0.75rem;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.likeButton:hover {
+  background-color: #ff6b6b;
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.likeButton.liked {
+  background-color: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+}
+
+.likeButton.liked:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
+}
+
+.productBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.productInfo {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 140px;
+}
+
+.productBrand {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+  flex-shrink: 0;
+}
+
+.productName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.3s;
+  flex: 1;
+  min-height: 2.8rem;
+}
+
+.productMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.likesCount {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.likesIcon {
+  color: #ff6b6b;
+  display: flex;
+  align-items: center;
+}
+
+.genderTag {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 4rem auto 0 auto;
+  padding: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.paginationButton {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.paginationNumbers {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0 1rem;
+}
+
+.paginationNumber {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  min-width: 44px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.paginationNumber:hover {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.paginationNumber.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* 로딩, 에러, 빈 상태 */
+.loadingContainer,
+.errorContainer,
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  min-height: 400px;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--bg-secondary);
+  border-top: 4px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p,
+.errorContainer p,
+.emptyContainer p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.errorIcon,
+.emptyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  color: #ef4444;
+}
+
+.emptyContainer h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+
+.emptyContainer p {
+  margin-bottom: 2rem;
+}
+
+.retryButton {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.retryButton:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .browseLayout {
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .browseLayout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .filterSidebar {
+    position: static;
+    margin-bottom: 2rem;
+    order: -1;
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .pageHeader h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .pageHeader {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+  }
+
+  .pageHeader h1 {
+    font-size: 1.8rem;
+  }
+
+  .filterSidebar {
+    padding: 1rem;
+  }
+
+  .filterSection {
+    margin-bottom: 1.5rem;
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .productImage {
+    height: 250px;
+  }
+
+  .productInfo {
+    min-height: 120px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: center;
+  }
+
+  .paginationNumbers {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+    margin: 0 0 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .productImage {
+    height: 300px;
+  }
+
+  .productInfo {
+    min-height: 110px;
+  }
+
+  .filterSection h4 {
+    font-size: 0.9rem;
+  }
+
+  .sortOption,
+  .filterOption {
+    font-size: 0.85rem;
+  }
+
+  .tryOnButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .likeButton {
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+  }
+
+  .pagination {
+    margin: 2rem auto 0 auto;
+    padding: 1rem 0;
+  }
+
+  .paginationButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .paginationNumber {
+    padding: 0.5rem 0.75rem;
+    min-width: 36px;
+    font-size: 0.8rem;
+  }
+}
+
+/* 다크모드 지원 */
+.dark-mode .sortOption::before,
+.dark-mode .filterOption::before {
+  border-color: var(--border-color);
+  background-color: var(--card-bg);
+}
+
+.dark-mode .sortOption:hover::before,
+.dark-mode .filterOption:hover::before {
+  border-color: var(--accent-color);
+}
+
+.dark-mode .sortOption:has(input[type="radio"]:checked),
+.dark-mode .filterOption:has(input[type="radio"]:checked) {
+  background-color: rgba(0, 123, 255, 0.15);
+}
+
+.dark-mode .productCard:hover {
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .productOverlay {
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.dark-mode .tryOnButton {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.dark-mode .tryOnButton:hover {
+  background-color: var(--accent-hover);
+  color: white;
+}
+
+.dark-mode .likeButton {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #9ca3af; /* 다크모드에서 회색 */
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .likeButton.liked {
+  background-color: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+}
+
+.dark-mode .likeButton:hover {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.dark-mode .likeButton.liked:hover {
+  background-color: #ff5252;
+  color: white;
+}
+
+/* 접근성 개선 */
+.productCard:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.filterOption:focus-within,
+.sortOption:focus-within {
+  background-color: var(--bg-secondary);
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* 애니메이션 성능 최적화 */
+.productCard,
+.tryOnButton,
+.likeButton,
+.paginationButton,
+.paginationNumber {
+  will-change: transform;
+}
+
+/* 스크롤바 스타일링 */
+.filterSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filterSidebar::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+.filterSidebar::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.filterSidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}

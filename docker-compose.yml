@@ -1,0 +1,146 @@
+version: "3.8"
+
+services:
+  # FastAPI 백엔드 서비스
+  backend:
+    build: ./backend
+    container_name: fastapi_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DATABASE=capstone
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      # Email (컨테이너에서 .env를 읽지 못할 때 대비, 필요시 주석 해제하고 값 채우기)
+      # - EMAIL_HOST=smtp.gmail.com
+      # - EMAIL_PORT=587
+      # - EMAIL_USERNAME=example@gmail.com
+      # - EMAIL_PASSWORD=app_password_here
+      # - EMAIL_FROM=example@gmail.com
+      # - EMAIL_USE_TLS=true
+      # - EMAIL_USE_SSL=false
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/app/api/ml_models:/app/app/api/ml_models
+    depends_on:
+      - mysql
+
+  # React 프론트엔드 서비스
+  frontend:
+    build: ./frontend
+    container_name: react_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+
+  # MySQL 데이터베이스 서비스
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: capstone
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # Redis 서비스
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  # 가상 피팅 워커 서비스 (GPU 가속 활성화)
+  virtual_fitting_worker:
+    build: ./backend
+    container_name: virtual_fitting_worker
+    command: python scripts/start_worker.py
+    runtime: nvidia
+    stop_grace_period: 3000s  # 50분으로 연장
+    restart: unless-stopped  # 자동 재시작 설정
+    healthcheck:
+      disable: true  # 헬스체크 타임아웃 방지
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+    privileged: true  # ONNX Runtime 실행을 위해 필요
+    ulimits:
+      nofile:
+        soft: 100000
+        hard: 100000
+      nproc:
+        soft: 100000
+        hard: 100000
+      memlock:
+        soft: -1
+        hard: -1
+      stack:
+        soft: 67108864
+        hard: 67108864
+    tmpfs:
+      - /tmp:size=4G
+      - /var/tmp:size=4G
+      - /dev/shm:size=4G
+    env_file:
+      - .env
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DATABASE=capstone
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      # GPU 활성화 설정
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - GPU_ID=cuda:0
+      # GPU 최적화 설정
+      - PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
+      - TORCH_CUDNN_V8_API_ENABLED=1
+      - TORCH_CUDNN_BENCHMARK=1
+      # ONNX Runtime GPU 최적화
+      - ORT_DISABLE_LOGGING=1
+      - ORT_DISABLE_PROFILING=1
+      # 메모리 최적화 (GPU 사용시 적은 메모리 필요)
+      - OMP_NUM_THREADS=4
+      - MKL_NUM_THREADS=4
+      - OPENBLAS_NUM_THREADS=4
+      - VECLIB_MAXIMUM_THREADS=4
+      - NUMEXPR_NUM_THREADS=4
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/app/api/ml_models:/app/app/api/ml_models
+    deploy:
+      resources:
+        limits:
+          memory: 16G  # 메모리 제한 증가
+          cpus: '4.0'  # CPU 제한 증가
+        reservations:
+          memory: 12G  # 메모리 예약 증가
+          cpus: '2.0'  # CPU 예약 증가
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+
+# 데이터베이스 볼륨 정의
+volumes:
+  mysql-data:
+  redis-data:

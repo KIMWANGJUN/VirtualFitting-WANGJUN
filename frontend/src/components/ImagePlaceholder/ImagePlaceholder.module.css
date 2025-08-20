@@ -1,0 +1,78 @@
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.imagePlaceholder.light {
+  background-color: #f2f2f2;
+}
+
+.imagePlaceholder.dark {
+  background-color: #222222;
+}
+
+.placeholderContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.placeholderInitials {
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.imagePlaceholder.light .placeholderInitials {
+  color: #000;
+}
+
+.imagePlaceholder.dark .placeholderInitials {
+  color: #fff;
+}
+
+.placeholderBrand {
+  position: absolute;
+  bottom: 15px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  opacity: 0.4;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.imagePlaceholder.light .placeholderBrand {
+  color: #000;
+}
+
+.imagePlaceholder.dark .placeholderBrand {
+  color: #fff;
+}
+
+/* 호버 효과 */
+.product-card:hover .imagePlaceholder {
+  transform: scale(1.05);
+}
+
+.product-card:hover .placeholderInitials {
+  opacity: 0.7;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .placeholderInitials {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,808 @@
+.mainPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s;
+  padding-top: 70px; /* 헤더 높이만큼 패딩 추가 */
+}
+
+.mainContent {
+  flex: 1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 히어로 배너 섹션 */
+.heroBanner {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.bannerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bannerSlide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.bannerSlide.active {
+  opacity: 1;
+}
+
+.bannerBackground {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bannerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.bannerContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.bannerTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.bannerSubtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+}
+
+.bannerButton {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.bannerButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
+}
+
+.bannerIndicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 3;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+  border-color: white;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  border-color: white;
+  transform: scale(1.1);
+}
+
+/* 섹션 공통 스타일 */
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  text-align: center;
+  transition: color 0.3s;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.sectionHeader .sectionTitle {
+  margin-bottom: 0;
+  text-align: left;
+}
+
+/* 추천 상품 섹션 */
+.recommendedSection {
+  padding: 4rem 0;
+  background-color: var(--bg-primary);
+}
+
+.filterButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.filterBtn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-secondary);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.filterBtn.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.filterBtn:hover:not(.active) {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  min-height: 400px;
+}
+
+.productCard {
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.productCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-color);
+}
+
+.productImage {
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+}
+
+.productImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover .productImage img {
+  transform: scale(1.05);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.newBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.productOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.productCard:hover .productOverlay {
+  opacity: 1;
+}
+
+.tryOnButton,
+.likeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.tryOnButton {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  flex: 1;
+  border: 1px solid var(--accent-color);
+}
+
+.tryOnButton:hover {
+  background-color: var(--accent-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.likeButton {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.75rem;
+  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.likeButton:hover {
+  background-color: #ff6b6b;
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+.likeButton.liked {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.heartIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.likeButton.liked .heartIcon {
+  color: white;
+}
+
+.likeButton:hover .heartIcon {
+  transform: scale(1.1);
+}
+
+.productInfo {
+  padding: 1.5rem;
+}
+
+.productBrand {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.productName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  transition: color 0.3s;
+}
+
+.productMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productCategory {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  background-color: rgba(0, 123, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+}
+
+.likesCount {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.likesIcon {
+  color: #ff6b6b;
+  display: flex;
+  align-items: center;
+}
+
+.sectionFooter {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.viewAllButton {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 123, 255, 0.3);
+}
+
+.viewAllButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 123, 255, 0.4);
+}
+
+/* 카테고리별 상품 섹션 */
+.categorySection {
+  padding: 4rem 0;
+  background-color: var(--bg-secondary);
+}
+
+.categoryGroup {
+  margin-bottom: 4rem;
+}
+
+.categoryGroup:last-child {
+  margin-bottom: 0;
+}
+
+.categoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.categoryTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.categoryMoreBtn {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.categoryMoreBtn:hover {
+  background-color: var(--accent-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+.categoryProducts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 좋아요한 의류 섹션 */
+.likedSection {
+  padding: 4rem 0;
+  background-color: var(--bg-primary);
+}
+
+.viewMoreBtn {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.viewMoreBtn:hover {
+  background-color: var(--accent-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+.likedProducts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  min-height: 300px;
+}
+
+/* 로딩, 에러, 빈 상태 */
+.loadingContainer,
+.errorContainer,
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  min-height: 300px;
+  grid-column: 1 / -1;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--bg-secondary);
+  border-top: 4px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p,
+.errorContainer p,
+.emptyContent p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.errorIcon,
+.emptyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  color: var(--text-secondary);
+}
+
+.errorIcon {
+  color: #ef4444;
+}
+
+.emptyIcon {
+  color: var(--accent-color);
+}
+
+.emptyContent h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+
+.emptyContent p {
+  margin-bottom: 2rem;
+}
+
+.retryButton {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.retryButton:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .productsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .bannerTitle {
+    font-size: 2.8rem;
+  }
+
+  .bannerSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroBanner {
+    height: 500px;
+    margin-bottom: 3rem;
+  }
+
+  .bannerTitle {
+    font-size: 2.2rem;
+  }
+
+  .bannerSubtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .bannerButton {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .sectionHeader .sectionTitle {
+    text-align: center;
+    width: 100%;
+  }
+
+  .filterButtons {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filterBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .productImage {
+    height: 300px;
+  }
+
+  .categoryHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .categoryProducts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .heroBanner {
+    height: 400px;
+    margin-bottom: 2rem;
+  }
+
+  .bannerTitle {
+    font-size: 1.8rem;
+  }
+
+  .bannerSubtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .bannerButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .filterButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filterBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .productImage {
+    height: 300px;
+  }
+
+  .categoryProducts {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 다크모드 지원 */
+.dark-mode .bannerOverlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.dark-mode .productCard:hover {
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .newBadge {
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.dark-mode .viewAllButton {
+  box-shadow: 0 8px 24px rgba(58, 134, 255, 0.4);
+}
+
+.dark-mode .viewAllButton:hover {
+  box-shadow: 0 12px 32px rgba(58, 134, 255, 0.5);
+}
+
+/* 접근성 개선 */
+.bannerButton:focus,
+.filterBtn:focus,
+.viewAllButton:focus,
+.tryOnButton:focus,
+.likeButton:focus,
+.categoryMoreBtn:focus,
+.viewMoreBtn:focus,
+.retryButton:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.productCard:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* 애니메이션 성능 최적화 */
+.productCard,
+.bannerButton,
+.filterBtn,
+.viewAllButton,
+.tryOnButton,
+.likeButton {
+  will-change: transform;
+}
+
+/* 스크롤 애니메이션 */
+@media (prefers-reduced-motion: no-preference) {
+  .productCard {
+    animation: fadeInUp 0.6s ease-out;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.likeButton.liked .heartIcon {
+  color: white;
+}
+
+.dark-mode .likeButton.liked .heartIcon {
+  color: white;
+}
